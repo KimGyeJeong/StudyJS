@@ -16,7 +16,7 @@ console.log(('b'+'a'+ + 'a'+'a').toLowerCase());
 
 // 명시적 타입 변환
 // 1. 문자열 타입으로 변환
-//      - String 생성자 함수를 new 연산자 없이 호출하는 방법
+//      - String 생성자 함수를 new 연산자4edde ftv5d\-==\= 호출하는 방법
 console.log(String(1));
 console.log(String(NaN));
 console.log(String(Infinity))
