@@ -8,7 +8,7 @@ function Circle(radius) {
 
 const circle = new Circle(10);
 console.log(`1 : ${circle.getDiameter()}`);
-console.log(`2 : ${circle}`);
+console.log(`2 : ${circle}`);   // [object Object]
 
 circle.radius = 30;
 console.log(`3: ${circle.radius}`);
@@ -25,16 +25,15 @@ console.log(`9 : ${Circle(1000)}`);
 
 Circle.radius2 = 80;
 Circle.method = function (){
-    console.log(`radius : ${this.radius}`);
-    console.log(`radius2 : ${this.radius2}`)};
+    console.log(`10 : ${this.radius}`);
+    console.log(`11 : ${this.radius2}`)};
 Circle.method();
-console.log(`10 : ${Circle.radius}`);
 
 const circle3 = new Circle(100);
-console.log(`11 : ${circle3.radius2}`);
-console.log(`12 : ${circle3.method()}`);        
-console.log(`13 : ${circle3.method}`);
-console.log(`14 : ${circle3.getDiameter()}`);
+console.log(`12 : ${circle3.radius2}`);
+console.log(`13 : ${circle3.method()}`);        
+console.log(`14 : ${circle3.method}`);
+console.log(`15 : ${circle3.getDiameter()}`);
 
 
 /**
@@ -47,13 +46,12 @@ console.log(`14 : ${circle3.getDiameter()}`);
  * 7 : undefined
  * 8 : 300
  * 9 : 300
- * radius : 40
- * radius2 : 80
  * 10 : 40
- * 11 : undefined
- * 12 : // TypeError: circle3.method is not a function
- * 13 : undefined
- * 14 : 200
+ * 11 : 80
+ * 12 : undefined
+ * 13 : TypeError: circle3.method is not a function
+ * 14 : undefined
+ * 15 : 200
  */
 
 /**
