@@ -31,10 +31,11 @@ Circle.method();
 
 const circle3 = new Circle(100);
 console.log(`12 : ${circle3.radius2}`);
-console.log(`13 : ${circle3.method()}`);        
+// console.log(`13 : ${circle3.method()}`);        
 console.log(`14 : ${circle3.method}`);
 console.log(`15 : ${circle3.getDiameter()}`);
 
+console.dir(circle3);
 
 /**
  * 1 : 20

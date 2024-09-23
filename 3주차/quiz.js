@@ -7,9 +7,7 @@ new plant();
 new livingThing.type();
 // const vehicle = () => {};
 // new vehicle();
-const machine = { operate() {} };
-
-console.log(typeof machine); // object
+// const machine = { operate() {} };
 // new machine.operate();
 
 // 2. 실행 결과 예측
