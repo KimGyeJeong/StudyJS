@@ -193,25 +193,151 @@ console.log('helloworld');
 
 
 // p.g 293 예제 19-43
+// function Person(name){
+//     this.name = name;
+// }
+// const me = new Person('Kim');
+//
+// // 프로토타입으로 교체할 객체
+// const parent = {
+//     sayHello(){
+//         console.log(`Hi! My name is ${this.name}`);
+//     }
+// };
+//
+// // me 객체의 프로토타입을 parent 객체로 교체한다
+// Object.setPrototypeOf(me, parent);
+// // 위의 코드는 me.__proto__ = parent; 와 동일하게 동작한다
+//
+// me.sayHello();  // Hi! My name is Kim
+//
+// // 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+// console.log(me.constructor === Person); // false
+// // 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
+// console.log(me.constructor === Object); // true
+
+//p.g 295 예제 19-45
+// function Person(name){
+//     this.name = name;
+// }
+// const me = new Person('Kim');
+//
+// // 프로토타입으로 교체할 객체
+// const parent = {
+//     constructor : Person, 
+//     sayHello(){
+//         console.log(`Hi! My name is ${this.name}`);
+//     }
+// };
+//
+// Person.prototype = parent;
+//
+// // me 객체의 프로토타입을 parent 객체로 교체한다
+// Object.setPrototypeOf(me, parent);
+// // 위의 코드는 me.__proto__ = parent; 와 동일하게 동작한다
+//
+// me.sayHello();  // Hi! My name is Kim
+//
+// // constructor 프로퍼티가 생성자 함수를 가리킨다.
+// console.log(me.constructor === Person); // true
+// console.log(me.constructor === Object); // false
+//
+// // 생성자 함수의 prototype 프로퍼티가 교체된 프로토타입을 가리킨다
+// console.log(Person.prototype === Object.getPrototypeOf(me));    // true
+
+//p.g 296 예제 19-46
+// function Person(name){
+//     this.name = name;
+// }
+// const me = new Person('Kim');
+//
+// // Person.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가됨
+// console.log(me instanceof Person);  // true
+// // Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가됨
+// console.log(me instanceof Object);
+//
+// 예제 19-47
+// function Person(name){
+//     this.name = name;
+// }
+// const me = new Person('Kim');
+//
+// // 프로토타입으로 교체할 객체
+// const parent = {};
+//
+// // 프로토타입의 교체
+// Object.setPrototypeOf(me,  parent);
+//
+// // Person 생성자 함수와 parent 객체는 연결되어 있지 않다.
+// console.log(Person.prototype === parent);   // false
+// console.log(parent.constructor === Person); // false
+//
+// // Person.prototype이 me 객체의 프로토타입 체인 상에 존재하지 않기 때문에 false로 평가된다.
+// console.log(me instanceof Person);  // false
+// // Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+// console.log(me instanceof Object);
+
+//p.g 297 예제 19-48
+//생성자 함수
+// function Person(name){
+//     this.name = name;
+// }
+// const me = new Person('Kim');
+//
+// // 프로토타입으로 교체할 객체
+// const parent = {};
+//
+// // 프로토타입의 교체
+// Object.setPrototypeOf(me, parent);
+//
+// // Person 생성자 함수와 parent 객체는 연결되어 있지 않다.
+// console.log(Person.prototype === parent);   // false
+// console.log(parent.constructor === Person); // false
+//
+// // parent 객체를 Person 생성자 함수의 prototype 프로퍼티에 바인딩한다
+// Person.prototype = parent;
+//
+// // Person.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+// console.log(me instanceof Person);  // true
+//
+// // Object.prototype 이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+// console.log(me instanceof Object);  // true
+
+// const myProto = {x : 10};
+//
+// const obj = {
+//     y : 20,
+//     __proto__ : myProto
+// };
+// const obj2 = {
+//     y : 20,
+//     constructor : myProto
+// };
+
+// p.g303 예제 19-56
+//생성자 함수
 function Person(name){
     this.name = name;
 }
-const me = new Person('Kim');
 
-// 프로토타입으로 교체할 객체
-const parent = {
-    sayHello(){
-        console.log(`Hi! My name is ${this.name}`);
-    }
+// 프로토타입 메서드
+Person.prototype.sayHello = function (){
+    console.log(`Hi! My name is ${this.name}`);
 };
 
-// me 객체의 프로토타입을 parent 객체로 교체한다
-Object.setPrototypeOf(me, parent);
-// 위의 코드는 me.__proto__ = parent; 와 동일하게 동작한다
+// 정적 프로퍼티
+Person.staticProp = 'static prop';
 
-me.sayHello();  // Hi! My name is Kim
+// 정적 메서드
+Person.staticMethod = function (){
+    console.log('staticMethod!');
+};
 
-// 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
-console.log(me.constructor === Person); // false
-// 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
-console.log(me.constructor === Object); // true
+const me = new Person('Kim');
+
+//생성자 함수에 추가한 정적 프로퍼티/메서드는 생성자 함수로 참조/호출한다.
+Person.staticMethod();  // staticMethod!
+
+//정적 프로퍼티/메서드는 생성자 함수가 생성한 인스턴스로 참조/호출할 수 없다.
+//인스턴스로 참조/호출할 수 있는 프로퍼티/메서드는 프로토타입 체인 상에 존재해야 한다.
+// me.staticMethod();  // TypeError: me.staticMethod is not a function
