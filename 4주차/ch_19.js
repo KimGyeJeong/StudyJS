@@ -93,10 +93,125 @@ console.log('helloworld');
 
 // p.g 277 예제 19-20, 21
 
-// 함수 정의(constructor)가 평가되어 함수 객체를 생성하는 시점에 프로토타입도 더불어 생성됨
-console.log(Person.prototype);
+// // 함수 정의(constructor)가 평가되어 함수 객체를 생성하는 시점에 프로토타입도 더불어 생성됨
+// console.log(Person.prototype);
+//
+// // 생성자 함수
+// function Person(name){
+//     this.name = name;
+// }
 
-// 생성자 함수
+// p.g 288 예제 19-36
+// const Person = (function (){
+//     // 생성자 함수
+//     function Person(name){
+//         this.name = name;
+//     }
+//
+//     // 프로토타입 메서드
+//     Person.prototype.sayHello = function (){
+//         console.log(`Hi! My name is ${this.name}`)
+//     };
+//
+//     return Person;
+// }());
+//
+// const me = new Person('Kim');
+//
+// // 인스턴스 메서드
+// me.sayHello = function (){
+//     console.log(`Hey! My name is ${this.name}`);
+// };
+//
+// // 인스턴스 메서드가 호출됨. 프로토 타입 메서드는 인스턴스 메서드에 의해 가려짐
+// me.sayHello();  // Hey! My name is Kim
+//
+// // p.g 290 예제 19-37, 38
+// // 19-36연결
+// delete me.sayHello;
+//
+// // 인스턴스에는 sayHello 메서드가 없으므로 프로토타입 메서드가 호출된다.
+// me.sayHello();  // Hi! My name is Kim
+//
+// delete me.sayHello;
+//
+// // 인스턴스에는 sayHello 메서드가 없으므로 프로토타입 메서드가 호출된다.
+// me.sayHello();  // Hi! My name is Kim
+//
+//
+// // p.g 290 예제 19-39
+// // 프로토타입 메서드 변경
+// Person.prototype.sayHello = function (){
+//     console.log(`Heey! My name is ${this.name}`)
+// };
+// me.sayHello();  // Heey! My name is Kim
+//
+// delete Person.prototype.sayHello;
+// me.sayHello();  // TypeError: me.sayHello is not a function
+
+
+// p.g 291 예제 19-40
+// const Person = (function (){
+//     function Person(name){
+//         this.name = name;
+//     }
+//    
+//     Person.prototype = {
+//         sayHello(){
+//             console.log(`Hi! My name is ${this.name}`);
+//         }
+//     };
+//     return Person;
+// }());
+//
+// const me = new Person('Kim');
+// me.sayHello();  // Hi! My name in Kim
+//
+
+// p.g 292 예제 19-42
+// const Person = (function(){
+//     function Person(name){
+//         this.name = name;
+//     }
+//    
+//     // 생성자 함수의 prototype 프로퍼티를 통해 프로토타입을 교체
+//     Person.prototype = {
+//         // constructor 프로퍼티와 생성자 함수 간의 연결을 설정
+//         constructor : Person, 
+//         sayHello(){
+//             console.log(`Hi, My name is ${this.name}`);
+//         }
+//     };
+//     return Person;
+// }());
+//
+// const me = new Person('Kim');
+//
+// // constructor 프로퍼티가 생성자 함수를 가리킨다
+// console.log(me.constructor === Person); // true
+// console.log(me.constructor === Object); // false
+
+
+// p.g 293 예제 19-43
 function Person(name){
     this.name = name;
 }
+const me = new Person('Kim');
+
+// 프로토타입으로 교체할 객체
+const parent = {
+    sayHello(){
+        console.log(`Hi! My name is ${this.name}`);
+    }
+};
+
+// me 객체의 프로토타입을 parent 객체로 교체한다
+Object.setPrototypeOf(me, parent);
+// 위의 코드는 me.__proto__ = parent; 와 동일하게 동작한다
+
+me.sayHello();  // Hi! My name is Kim
+
+// 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+console.log(me.constructor === Person); // false
+// 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
+console.log(me.constructor === Object); // true
