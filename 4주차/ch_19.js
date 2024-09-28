@@ -316,28 +316,50 @@ console.log('helloworld');
 
 // p.g303 예제 19-56
 //생성자 함수
-function Person(name){
-    this.name = name;
-}
+// function Person(name){
+//     this.name = name;
+// }
+//
+// // 프로토타입 메서드
+// Person.prototype.sayHello = function (){
+//     console.log(`Hi! My name is ${this.name}`);
+// };
+//
+// // 정적 프로퍼티
+// Person.staticProp = 'static prop';
+//
+// // 정적 메서드
+// Person.staticMethod = function (){
+//     console.log('staticMethod!');
+// };
+//
+// const me = new Person('Kim');
+//
+// //생성자 함수에 추가한 정적 프로퍼티/메서드는 생성자 함수로 참조/호출한다.
+// Person.staticMethod();  // staticMethod!
+//
+// //정적 프로퍼티/메서드는 생성자 함수가 생성한 인스턴스로 참조/호출할 수 없다.
+// //인스턴스로 참조/호출할 수 있는 프로퍼티/메서드는 프로토타입 체인 상에 존재해야 한다.
+// // me.staticMethod();  // TypeError: me.staticMethod is not a function
 
-// 프로토타입 메서드
-Person.prototype.sayHello = function (){
-    console.log(`Hi! My name is ${this.name}`);
-};
+// p.g306 예제 19-59
+// const person = {
+//     name : 'Kim',
+//     address : 'Seoul'
+// };
+//
+// console.log('name' in person);      // true
+// console.log('address' in person);   // true
+// console.log('age' in person);       // false
+// console.log('toString' in person);  // true
 
-// 정적 프로퍼티
-Person.staticProp = 'static prop';
+// p.g 307 예제.19-61
+const person = {name : 'Kim'};
 
-// 정적 메서드
-Person.staticMethod = function (){
-    console.log('staticMethod!');
-};
+console.log(Reflect.has(person, 'name'));       // true
+console.log(Reflect.has(person, 'toString'));   // true
 
-const me = new Person('Kim');
+console.log(person.hasOwnProperty('name'));     // true
+console.log(person.hasOwnProperty('age'));     // false
 
-//생성자 함수에 추가한 정적 프로퍼티/메서드는 생성자 함수로 참조/호출한다.
-Person.staticMethod();  // staticMethod!
-
-//정적 프로퍼티/메서드는 생성자 함수가 생성한 인스턴스로 참조/호출할 수 없다.
-//인스턴스로 참조/호출할 수 있는 프로퍼티/메서드는 프로토타입 체인 상에 존재해야 한다.
-// me.staticMethod();  // TypeError: me.staticMethod is not a function
+console.log(person.hasOwnProperty('toString')); // false
