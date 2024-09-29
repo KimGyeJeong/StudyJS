@@ -354,12 +354,55 @@ console.log('helloworld');
 // console.log('toString' in person);  // true
 
 // p.g 307 예제.19-61
-const person = {name : 'Kim'};
+// const person = {name : 'Kim'};
+//
+// console.log(Reflect.has(person, 'name'));       // true
+// console.log(Reflect.has(person, 'toString'));   // true
+//
+// console.log(person.hasOwnProperty('name'));     // true
+// console.log(person.hasOwnProperty('age'));     // false
+//
+// console.log(person.hasOwnProperty('toString')); // false
 
-console.log(Reflect.has(person, 'name'));       // true
-console.log(Reflect.has(person, 'toString'));   // true
+//p.g. 308 예제 19-65
+// const person = {
+//     name : 'Kim',
+//     address : 'Seoul'
+// };
+//
+// // in 연산자는 객체가 상속받은 모든 프로토타입의 프로퍼티를 확인한다.
+// console.log('toString' in person);  // true
+//
+// //for ... in 문도 객체가 상속받은 모든 프로토타입의 프로포티를 열거한다.
+// //하지만 toString과 같은 Object.prototype의 프로퍼티가 열거되지 않는다.
+// for (const key in person){
+//     console.log(`${key} : ${person[key]}`)
+// }
+// // name : Kim
+// // address : Seoul
+//
+// const onePerson = person;
+// // onePerson.prototype.age = 20;   // TypeError: Cannot set properties of undefined (setting 'age')
+// onePerson.__proto__.age = 20;
+//
+// for (const key in person){
+//     console.log(`${key} : ${person[key]}`)
+// }
+//
+// for (const key in onePerson){
+//     console.log(`${key} : ${onePerson[key]}`)
+// }
 
-console.log(person.hasOwnProperty('name'));     // true
-console.log(person.hasOwnProperty('age'));     // false
+const person = {
+    name : 'Kim',
+    address : 'Seoul',
+    __proto__ : {age : 20}
+};
 
-console.log(person.hasOwnProperty('toString')); // false
+// console.log(Object.keys(person));   // [ 'name', 'address' ]
+// console.log(Object.values(person)); // [ 'Kim', 'Seoul' ]
+
+console.log(Object.entries(person));    // [ [ 'name', 'Kim' ], [ 'address', 'Seoul' ] ]
+Object.entries(person).forEach(([key,  value]) => console.log(key,  value));
+// name Kim
+// address Seoul
