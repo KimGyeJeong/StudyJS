@@ -53,9 +53,10 @@ for (const key in person){
 
 const onePerson = person;
 // 7. 다음 두문장중 에러가 발생하는곳을 찾고, 그 이유 적기.
-onePerson.prototype.age = 20;   
+// onePerson.prototype.age = 20;   
 onePerson.__proto__.age = 20;
-//
+
+// 위 코드중 에러가 나는 부분 제외후에 진행될 코드
 for (const key in person){
     console.log(`8 : ${key} : ${person[key]}`)
 }

@@ -393,16 +393,63 @@ console.log('helloworld');
 //     console.log(`${key} : ${onePerson[key]}`)
 // }
 
-const person = {
-    name : 'Kim',
-    address : 'Seoul',
-    __proto__ : {age : 20}
+// const person = {
+//     name : 'Kim',
+//     address : 'Seoul',
+//     __proto__ : {age : 20}
+// };
+//
+// // console.log(Object.keys(person));   // [ 'name', 'address' ]
+// // console.log(Object.values(person)); // [ 'Kim', 'Seoul' ]
+//
+// console.log(Object.entries(person));    // [ [ 'name', 'Kim' ], [ 'address', 'Seoul' ] ]
+// Object.entries(person).forEach(([key,  value]) => console.log(key,  value));
+// // name Kim
+// // address Seoul
+
+
+// const Person = (function (){
+//     function Person(name){
+//         this.name = name;
+//     }
+//
+//     // 생성자 함수의 prototype 프로퍼티를 통해 프로토타입을 교체
+//     // Person.prototype = {
+//     //     sayHello(){
+//     //         console.log(`Hi! My name is ${this.name}`);
+//     //     }
+//     // };
+//     return Person;
+// }());
+//
+// const me = new Person('Kim');
+// me.sayHello();  // Hi! My name in Kim
+//
+// // 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+// console.log(me.constructor === Person); // false
+// // 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
+// console.log(me.constructor === Object); // true
+
+
+function Person(name){
+    this.name = name;
+}
+const me = new Person('Kim');
+
+// 프로토타입으로 교체할 객체
+const parent = {
+    sayHello(){
+        console.log(`Hi! My name is ${this.name}`);
+    }
 };
 
-// console.log(Object.keys(person));   // [ 'name', 'address' ]
-// console.log(Object.values(person)); // [ 'Kim', 'Seoul' ]
+// me 객체의 프로토타입을 parent 객체로 교체한다
+Object.setPrototypeOf(me, parent);
+// 위의 코드는 me.__proto__ = parent; 와 동일하게 동작한다
 
-console.log(Object.entries(person));    // [ [ 'name', 'Kim' ], [ 'address', 'Seoul' ] ]
-Object.entries(person).forEach(([key,  value]) => console.log(key,  value));
-// name Kim
-// address Seoul
+me.sayHello();  // Hi! My name is Kim
+
+// 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+console.log(me.constructor === Person); // false
+// 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
+console.log(me.constructor === parent); // true
