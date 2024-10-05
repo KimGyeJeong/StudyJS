@@ -192,3 +192,82 @@ console.log('helloworld');
 // console.log(parseInt('40 years'));  // 40
 // console.log(parseInt('He was 40')); // NaN
 // console.log(parseInt(' 60 '));      // 60
+
+// // 완전한 URI
+// const uri = 'http://example.com?name=김이름&job=programmer&teacher';
+//
+// // encodeURI 함수는 완전한 URI를 전달받아 이스케이프 처리를 위해 인코딩한다.
+// const enc = encodeURI(uri);
+// console.log(enc);   // http://example.com?name=%EA%B9%80%EC%9D%B4%EB%A6%84&job=programmer&teacher
+//
+// const dec = decodeURI(enc);
+// console.log(dec);   // http://example.com?name=김이름&job=programmer&teacher
+
+// // URI의 쿼리 스트링
+// const uriComp = 'name=김이름&job=programmer&teacher';
+//
+// // encodeURIComponent 함수는 인수로 전달받은 문자열을 URI의 구성요소인 쿼리 스트링의 일부로 간주한다.
+// // 따라서 쿼리 스트링 구분자로 사용되는 =, ?, & 까지 인코딩한다
+// let enc = encodeURIComponent(uriComp);
+// console.log(enc);   // name%3D%EA%B9%80%EC%9D%B4%EB%A6%84%26job%3Dprogrammer%26teacher
+//
+// let dec = decodeURIComponent(enc);
+// console.log(dec);   // name=김이름&job=programmer&teacher
+//
+// // encodeURI 함수는 인수로 전달받은 문자열을 완전한 URI로 간주한다.
+// enc = encodeURI(uriComp);
+// console.log(enc);   // name=%EA%B9%80%EC%9D%B4%EB%A6%84&job=programmer&teacher
+//
+// dec = decodeURI(enc);
+// console.log(dec);   // name=김이름&job=programmer&teacher
+
+// var x = 10;
+//
+// function foo(){
+//     // 선언하지 않은 식별자에 값을 할당
+//     y = 20; // window.y = 20;
+// }
+//
+// console.log(x+y);   // ReferenceError: y is not defined
+//
+// foo();
+// console.log(x+y);   // 30
+
+// // 전역 변수 x는 호이스팅이 발생한다.
+// console.log(x); // undefined
+// // 전역 변수가 아니라 단지 전역 객체의 프로퍼티인 y는 호이스팅이 발생하지 않는다.
+// console.log(y); // ReferenceError: y is not defined
+//
+//
+// var x = 10;
+//
+// function foo(){
+//     // 선언하지 않은 식별자에 값을 할당
+//     y = 20; // window.y = 20;
+// }
+// foo();
+//
+// // 선언하지 않은 식별자 y를 전역에서 참조 할 수 있다.
+// console.log(x+y);   // 30
+
+
+// // 브라우저에서 실행
+// var x = 10;
+//
+// function foo(){
+//     // 선언하지 않은 식별자에 값을 할당
+//     y = 20; // window.y = 20;
+//     console.log(x+y);   // 30
+// }
+// foo();
+//
+// console.log(window.x);  // 10
+// console.log(window.y);  // 20
+//
+// delete x;   // 전역 변수는 삭제되지 않는다.
+// delete y;   // 프로퍼티는 삭제된다.
+//
+// console.log(window.x);  // 10
+// console.log(x); // 10
+// console.log(window.y);  // undefined
+// console.log(y); // Uncaught ReferenceError: y is not defined
