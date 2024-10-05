@@ -107,12 +107,88 @@ console.log('helloworld');
 // console.log(isFinite('Hello')); // false
 // console.log(isFinite('2005/12/12'));    // false
 
-// 숫자
-console.log(isNaN(NaN));
-console.log(isNaN(NaN));
+// // 숫자
+// console.log(isNaN(NaN));        // true
+// console.log(isNaN(10)); // false
+//
+// // 문자열
+// console.log(isNaN('blablabla'));    // true NaN
+// console.log(isNaN('10'));           // false 10
+// console.log(isNaN('10.12'));        // false 10.12
+// console.log(isNaN(''));             // false 0
+// console.log(isNaN(' '));            // false 0
+//
+// // 불리언
+// console.log(isNaN(true));       // true 1
+// console.log(isNaN(null));       // false 0
+//
+// // undefined
+// console.log(isNaN(undefined));  // true NaN
+//
+// // 객체
+// console.log(isNaN({}));     // true NaN
+//
+// // date
+// console.log(isNaN(new Date()));     // false Number
+// console.log(isNaN(new Date()).toString());  // true NaN
 
-// 문자열
-console.log(isNaN(NaN));
+
+// // 문자열을 실수로 해석하여 반환함
+// console.log(parseFloat('3.14'));    // 3.14
+// console.log(parseFloat('10.00'));   // 10
+//
+// // 공백으로 구분된 문자열은 첫 번째 문자열만 변환함
+// console.log(parseFloat('34 45 66'));    // 34
+// console.log(parseFloat('40 years'));    // 40
+//
+// // 첫 번째 문자열을 숫자로 변환할 수 없다면 NaN을 반환함
+// console.log(parseFloat('He was 40'));   // NaN
+//
+// // 앞뒤 공백은 무시됨
+// console.log(parseFloat(' 60 '));    // 60
 
 
-
+// // 문자열을 정수로 해석하여 반환한다.
+// console.log(parseInt(10));      // 10
+// console.log(parseInt(10.123));  // 10
+//
+// // 두번째 인수로 진법을 나타내는 기수(2~36)를 전달할 수 있다.
+// // 기수를 지정하면 첫 번째 인수로 전달된 문자열을 해당 기수의 숫자로 해석하여 반환하는데 반환값은 언제나 10진수이며,
+// // 기수를 생략하면 첫 번째 인수로 전달된 문자열을 10진수로 해석하여 반환한다.
+// console.log(parseInt('10',2));  // 2
+// console.log(parseInt('10',8));  // 8
+// console.log(parseInt('10', 16));// 16
+//
+// // 기수를 지정하여 10진수 숫자를 해당 기수의 문자열로 변환하여 반환하고 싶을 때는 Number.prototype.toString 메서드를 사용한다.
+// const x = 15;
+//
+// // 10진수 15를 2진수로 변환하여 그 결과를 문자열로 반환한다.
+// console.log(x.toString(2)); // '1111'
+// // 문자열 '1111'을 2진수로 해석하고 그 결과를 10진수 정수로 반환한다.
+// console.log(parseInt(x.toString(2), 2));    // 15
+//
+// // 첫번째 인수로 전달된 문자열이 0x 또는 0X로 시작하는 16진수 리터럴이라면 16진수로 해석하여 10진수 정수로 반환한다.
+// console.log(parseInt('0xf'));       // 15
+// console.log(parseInt('f',16));  // 15
+//
+// // 하지만 2진수, 8진수 리터럴은 제대로 해석하지 못한다
+// // 2진수 리터럴(0b로 시작)은 제대로 해석하지 못한다. 0 이후가 무시된다.
+// console.log(parseInt('0b10'));  // 0
+// // 8진수 리터럴(ES6에서 도입. 0o로 시작)은 제대로 해석하지 못한다. 0 이후가 무시된다.
+// console.log(parseInt('0o10'));  // 0
+//
+// // 첫 번째 인수로 전달한 문자열의 첫 번째 문자가 해당 지수의 숫자로 변환될 수 없으면 NaN을 반환한다.
+// console.log(parseInt('A0'));    // NaN
+// console.log(parseInt('20', 2));    // NaN
+//
+// // 첫 번째 인수로 전달한 문자열의 두 번째 문자부터 해당 진수를 나타내는 숫자가 아닌 문자와 마주치면 이 문자와 계속되는 문자들은 전부 무시되며 해석된 정수값만 반환된다.
+// console.log(parseInt('1A0'));   // 1    10진수로 해석할 수 없는 'A'
+// console.log(parseInt('102', 2));    // 2    2진수로 해석할 수 없는 '2'
+// console.log(parseInt('58', 8)); // 5    8진수로 해석할 수 없는 '8'
+// console.log(parseInt('FG', 16)) // 15   16진수로 해석할 수 없는 'G'
+//
+// // 첫 번째 인수로 전달한 문자열에 공백이 있다면 첫 번째 문자열만 해석하여 반환하며 앞뒤 공백은 무시된다. 첫번째 문자열을 숫자로 해석할 수 없는 경우 NaN을 반환한다.
+// console.log(parseInt('34 45 66'));  // 34
+// console.log(parseInt('40 years'));  // 40
+// console.log(parseInt('He was 40')); // NaN
+// console.log(parseInt(' 60 '));      // 60
