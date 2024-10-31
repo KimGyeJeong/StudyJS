@@ -600,3 +600,169 @@ console.log('helloworld');
 //
 // const derived = new Derived(1, 2, 3);	// ➀
 // console.log(derived);					// Derived {a: 1, b: 2, c: 3}
+
+// // 수퍼클래스
+// class Base {
+//     constructor(name) {
+//         this.name = name;
+//     }
+//
+//     sayHi() {
+//         return `Hi ${this.name}`;
+//     }
+// }
+//
+// // 서브클래스
+// class Derived extends Base {
+//     sayHi() {
+//         // super.sayHi는 수퍼클래스의 프로토타입 메서드를 가리킨다.
+//         return `${super.sayHi()}. how are you doing?`;
+//     }
+// }
+//
+// const derived = new Derived('Kim');
+// console.log(derived.sayHi());   // Hi Kim. how are you doing?
+
+// // 서브클래스 
+// class Derived extends Base {
+//     sayHi() {
+//         // __super는 Base.prototype을 가리킨다.
+//         const __super = Object.getPrototypeOf(Derived.prototype);
+//         return `${__super.sayHi.call(this)} how are you doing?`;
+//     }
+// }
+
+// const base = {
+//     name: 'Kim',
+//     sayHi() {
+//         return `Hi! ${this.name}`;
+//     }
+// };
+//
+// const derived = {
+//     __proto__: base,
+//     // ES6 메서드 축약 표현으로 정의한 메서드다. 따라서 [[HomeObject]]를 갖는다.
+//     sayHi() {
+//         return `${super.sayHi()}. how are you doing?`;
+//     }
+// };
+//
+// console.log(derived.sayHi());	// Hi Kim. how are you doing?
+
+// // 수퍼클래스
+// class Base {
+//     static sayHi() {
+//         return 'Hi!';
+//     }
+// }
+// // 서브클래스
+// class Derived extends Base {
+//     static sayHi() {
+//         // super.sayHi는 수퍼클래스의 정적 메서드를 가리킨다.
+//         return `${super.sayHi()} how are you doing?`;
+//     }
+// }
+//
+// console.log(Derived.sayHi());	// Hi how are you doing?
+
+// // 수퍼클래스
+// class Rectangle {
+//     constructor(width, height) {
+//         this.width = width;
+//         this.height = height;
+//     }
+//
+//     getArea() {
+//         return this.width * this.height;
+//     }
+//
+//     toString() {
+//         return `width = ${this.width}, height = ${this.height}`;
+//     }
+// }
+// // 서브클래스
+// class ColorReactangle extends Rectangle {
+//     constructor(width, height, color) {
+//         super(width, height);
+//         this.color = color;
+//     }
+//
+//     // 메서드 오버라이딩
+//     toString() {
+//         return super.toString() + `, color = ${this.color}`;
+//     }
+// }
+//
+// const colorReactangle = new ColorReactangle(2, 4, 'red');
+// console.log(colorReactangle);   // ColorRectangle {width: 2, height: 4, color: "red"}
+//
+// // 상속을 통해 getArea 메서드 호출
+// console.log(colorReactangle.getArea());     // 8
+// // 오버라이딩된 toString 메서드를 호출
+// console.log(colorReactangle.toString());    // width = 2, height = 4, color = red
+
+// class Rectangle {
+//     constructor(width, height) {
+//         // 암묵적으로 빈 객체, 즉 인스턴스가 생성되고 this에 바인딩된다.
+//         console.log(this);	// ColorRectangle {}
+//         // new 연산자와 함께 호출된 함수, 즉 new.target은 ColorRectangle이다.
+//         console.log(new.target);	// ColorRectangle
+//     ...
+
+// // 수퍼클래스
+// class Rectangle {
+//     constructor(width, height) {
+//         // 암묵적으로 빈 객체, 즉 인스턴스가 생성되고 this에 바인딩된다.
+//         console.log(this);	// ColorRectangle {}
+//         // new 연산자와 함께 호출된 함수, 즉 new.target은 ColorRectangle이다.
+//         console.log(new.target);	// ColorRectangle
+//
+//         console.log(Object.getPrototypeOf(this) === ColorRectangle.prototype);	// true
+//         console.log(this instanceof ColorRectangle);	// true
+//         console.log(this instanceof Rectangle);		// true
+//     ...
+
+// // 수퍼클래스
+// class Rectangle {
+//     constructor(width, height) {
+//         // 암묵적으로 빈 객체, 즉 인스턴스가 생성되고 this에 바인딩된다.
+//         console.log(this);	// ColorRectangle {}
+//         // new 연산자와 함께 호출된 함수, 즉 new.target은 ColorRectangle이다.
+//         console.log(new.target);	// ColorRectangle
+//
+//         // 생성된 인스턴스의 프로토타입으로 ColorRectangle.prototype이 설정된다.
+//         console.log(Object.getPrototypeOf(this) === ColorRectangle.prototype);	// true
+//         console.log(this instanceof ColorRectangle);	// true
+//         console.log(this instanceof Rectangle);		// true
+//
+//         // 인스턴스 초기화
+//         this.width = width;
+//         this.height = height;
+//
+//         console.log(this);	// ColorRectangle {width: 2, height: 4}
+//     ...
+
+// // 서브클래스
+// class ColorRectangle extends Rectangle {
+//     constructor(width, height, color) {
+//         super(width, height);
+//
+//         // super가 반환한 인스턴스가 this에 바인딩된다.
+//         console.log(this);	// ColorRectangle {width: 2, height: 4}
+//     ...
+
+// // 서브클래스
+// class ColorRectangle extends Rectangle {
+//     constructor(width, height, color) {
+//         super(width, height);
+//
+//         // super가 반환한 인스턴스가 this에 바인딩된다.
+//         console.log(this);	// ColorRectangle {width: 2, height: 4}
+//
+//         // 인스턴스 초기화
+//         this.color = color;
+//
+//         // 완성된 인스턴스가 바인딩된 this가 암묵적으로 반환된다.
+//         console.log(this);	// ColorRectangle {width: 2, height: 4, color: "red"}
+//     }
+// ...
