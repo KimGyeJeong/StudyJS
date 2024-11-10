@@ -2,13 +2,13 @@ console.log('helloworld');
 // ch.26 ES6 함수의 추가 기능
 
 // 1. 기본 매개변수
-function calculatePrice(price, tax = 0.1) {
-    return price + (price * tax);
-}
-
-console.log(calculatePrice(100));
-console.log(calculatePrice(100, 0.2));
-console.log(calculatePrice(100, 0.5, 'kim'));
+// function calculatePrice(price, tax = 0.1) {
+//     return price + (price * tax);
+// }
+//
+// console.log(calculatePrice(100));
+// console.log(calculatePrice(100, 0.2));
+// console.log(calculatePrice(100, 0.5, 'kim'));
 
 /**
  *      110
@@ -45,3 +45,10 @@ console.log(person2.sayHi());
 // Hi, I'm John
 
 
+function calculatePrice(price, tax = 0.1) {
+    return price + (price * tax);
+}
+
+console.log(calculatePrice(100));
+console.log(calculatePrice(100, 0.2));
+console.log(calculatePrice(100, 'kim'));
