@@ -40,3 +40,6 @@ scoresMap.forEach((score, student) => {
 // Alice: 3
 // Bob: 3
 // Charlie: 4
+
+
+console.log(...new Map([]))
