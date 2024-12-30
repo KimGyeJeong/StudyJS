@@ -16,9 +16,9 @@
 //     at listOnTimeout (node:internal/timers:573:17)
 //     at process.processTimers (node:internal/timers:514:7)
 
-
-try {
-    setTimeout(() => { throw new Error('Error!'); }, 1000);
-} catch (e) { // 에러 처리 불가 
-    console.log('캐치한 에러', e);
-}
+//
+// try {
+//     setTimeout(() => { throw new Error('Error!'); }, 1000);
+// } catch (e) { // 에러 처리 불가 
+//     console.log('캐치한 에러', e);
+// }
