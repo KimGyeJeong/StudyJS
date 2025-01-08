@@ -21,7 +21,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 //json 형식의 데이터 전달 방식.
 app.use(express.json());
 //extended가 false 이면 querystring 모듈을 사용하여 쿼리스트링을 해석하고, true 이면 qs 모듈을 사용하여 쿼리스트링을 해석함.
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 
 // cookie-parser. 요청에 동봉된 쿠키를 해석해 req.cookies 객체로 만듬.
 app.use(cookieParser(process.env.SECRET));
@@ -31,28 +31,64 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
-    cookie:{
+    cookie: {
         httpOnly: true,
         secure: false,
     },
-    name:'session-cookie',
+    name: 'session-cookie',
 }));
 
+//multer 추가
+const multer = require('multer');
+const fs = require('fs');
+
+try {
+    fs.readdirSync('uploads');
+} catch (err) {
+    console.error('uploads not found. create uploads folder');
+    fs.mkdirSync('uploads');
+}
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, done) => {
+            done(null, 'uploads/');
+        },
+        filename(req, file, done) {
+            const ext = path.extname(file.originalname);
+            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        }
+    }),
+    limits: {fileSize: 5 * 1024 * 1024},
+});
+
+app.get('/upload', (req, res) => {
+    res.sendFile(path.join(__dirname, 'multipart.html'));
+});
+
+app.post('/upload', upload.fields([{name: 'image1'}, {name: 'image2'}]),
+    (req, res) => {
+        console.log(req.files, req.body);
+        res.send('ok');
+    },
+);
+
+
 // 미들웨어
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     console.log('모든 요청에 실행');
     next();
 })
 
-app.get('/',(req,res, next)=>{
+app.get('/', (req, res, next) => {
     console.log('GET / 요청에서만 실행');
     next();
-}, (req, res)=>{
+}, (req, res) => {
     console.log('실행!');
     throw new Error('에러는 에러 처리 미들웨어로 감.');
 });
 
-app.use((err,req, res)=>{
+app.use((err, req, res) => {
     console.error(err);
     res.status(500).send(err.message);
 });
