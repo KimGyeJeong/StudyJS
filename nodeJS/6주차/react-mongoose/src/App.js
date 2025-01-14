@@ -8,7 +8,7 @@ const App = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/users');
+      const response = await axios.get('http://localhost:9000/users');
       setUsers(response.data);
     } catch (err) {
       console.error(err);
@@ -18,7 +18,7 @@ const App = () => {
   const handleAddUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:9000/api/users', { name, age });
+      const response = await axios.post('http://localhost:9000/users', { name, age });
       setUsers([...users, response.data]);
       setName('');
       setAge('');
@@ -29,7 +29,7 @@ const App = () => {
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:9000/api/users/${id}`);
+      await axios.delete(`http://localhost:9000/users/${id}`);
       setUsers(users.filter((user) => user._id !== id));
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ const App = () => {
 
   return (
       <div>
-        <h1>User Management</h1>
+        <h1>User Management!</h1>
         <form onSubmit={handleAddUser}>
           <input
               type="text"

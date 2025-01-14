@@ -6,6 +6,10 @@ const connect = require('./schemas');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const commentsRouter = require('./routes/comments');
+
 dotenv.config();
 
 const app = express();
@@ -16,6 +20,10 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/comments', commentsRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} Not Found`);
