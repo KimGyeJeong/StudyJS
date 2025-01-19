@@ -4,11 +4,16 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const passport = require('passport');
+const passportConfig = ('./passport');
+const connectDB = require('./mongoose');
 
 dotenv.config();
 const pageRouter = require('./routes/page');
 
 const app = express();
+
+connectDB();
 app.set('port', process.env.PORT || 8000);
 
 app.use(morgan('dev'));
@@ -26,7 +31,7 @@ app.use(session({
     },
 }));
 
-app.use('/', pageRouter);
+app.use('/api', pageRouter);
 
 app.use((req, res, next) => {
     const error = new Error(`${req.method} ${req.url} not found`);
